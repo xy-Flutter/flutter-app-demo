@@ -1,73 +1,50 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyFlexApp());
+void main(List<String> args) => runApp(MyWrapApp());
 
-///弹性布局，很简单flex结合expanded
-class MyFlexApp extends StatelessWidget {
+///TODO  待研究，流式布局wrap问题：三个，右边有间隙
+class MyWrapApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Flex布局"),
+          title: Text("Wrap布局导航标题"),
+          backgroundColor: Colors.black,//导航栏的背景
         ),
         body: Container(
-          color: Colors.indigo,
-          child: Column(
+          padding: EdgeInsets.all(2.0),
+//          margin: EdgeInsets.all(0.0),
+          color: Colors.lightGreenAccent,
+          child: Wrap(
+            spacing: 5.0, //水平方向组件之间的间距
+            runSpacing: 5.0, //子组件垂直方向间距
+            alignment: WrapAlignment.center, //右边
             children: <Widget>[
-              Flex(
-                //水平方向的弹性布局
-                direction: Axis.horizontal,
-                children: <Widget>[
-                  Expanded(
-                      flex: 1,
-                      child: Container(
-                        height: 30,
-                        color: Colors.yellow,
-                        child: Text("水平左边"),
-                      )),
-                  Expanded(
-                    flex: 3,
-                    child: Container(
-                      height: 30,
-                      color: Colors.cyanAccent,
-                      child: Text("水平右边"),
-                    ),
-                  )
-                ],
-              )
-              //分隔符，试试垂直方向的弹性布局
-              ,
-              Container(
-                //分隔符
-                padding: EdgeInsets.only(top: 10.0),
-                color: Colors.red,
-                height: 100, //3个分
-                //垂直三个方向
-                child: Flex(
-                  direction: Axis.vertical,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        color: Colors.cyanAccent,
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        color: Colors.yellow,
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        color: Colors.cyan,
-                      ),
-                    ),
-                  ],
-                ),
-              )
+              Chip(
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.blue,
+                    child: Text("A"),
+                  ),
+                  label: Text("第1个子部件")),
+              Chip(
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.blue,
+                    child: Text("B"),
+                  ),
+                  label: Text("第2个子部件")),
+              Chip(
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.blue,
+                    child: Text("C"),
+                  ),
+                  label: Text("第3个子部件")),
+              Chip(
+                  avatar: CircleAvatar(
+                    backgroundColor: Colors.blue,
+                    child: Text("D"),
+                  ),
+                  label: Text("第4个子部件"))
             ],
           ),
         ),
