@@ -21,10 +21,12 @@ class MyStackPositionedApp extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center, //布局内未指定的组件默认居中
 //            textDirection: TextDirection.rtl,
+            fit: StackFit.expand, //没有指定位置的就占满stack全部
             children: <Widget>[
               Container(
                 color: Colors.greenAccent,
-                child: Text("container，没有指定位置，水平垂直居中对齐，stack内的元素都可以叠加"),
+                child: Text("container，没有指定位置，水平垂直居中对齐，stack内的元素都可以被后面的覆盖叠加",
+                    style: TextStyle(backgroundColor: Colors.white30)),
               ),
               Positioned(
                 left: 18.0, //水平不居中，垂直居中
@@ -42,6 +44,12 @@ class MyStackPositionedApp extends StatelessWidget {
                 child: Text(
                   "top，距离stack顶部200",
                 ),
+              )
+              ,Positioned(
+                left: 18.0,
+                child: Text("我会叠加",style: TextStyle(
+                  backgroundColor: Colors.deepPurpleAccent
+                ),),
               )
             ],
           ),
