@@ -1,50 +1,48 @@
 import 'package:flutter/material.dart';
 
-void main(List<String> args) => runApp(MyWrapApp());
+void main(List<String> args) {
+  runApp(MyStackPositionedApp());
+}
 
-///TODO  待研究，流式布局wrap问题：三个，右边有间隙
-class MyWrapApp extends StatelessWidget {
+///层叠布局 ：使用stack positioned实现绝对定位
+///stack：允许叠加
+///positioned：子部件相对stack四个角的实现定位
+class MyStackPositionedApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Wrap布局导航标题"),
-          backgroundColor: Colors.black,//导航栏的背景
+          title: Text("Flutter绝对定位"),
         ),
-        body: Container(
-          padding: EdgeInsets.all(2.0),
-//          margin: EdgeInsets.all(0.0),
-          color: Colors.lightGreenAccent,
-          child: Wrap(
-            spacing: 5.0, //水平方向组件之间的间距
-            runSpacing: 5.0, //子组件垂直方向间距
-            alignment: WrapAlignment.center, //右边
+        body: ConstrainedBox(
+          //确保stack占满全屏
+          constraints: BoxConstraints.expand(),
+          child: Stack(
+            alignment: Alignment.center, //布局内未指定的组件默认居中
+//            textDirection: TextDirection.rtl,
             children: <Widget>[
-              Chip(
-                  avatar: CircleAvatar(
-                    backgroundColor: Colors.blue,
-                    child: Text("A"),
-                  ),
-                  label: Text("第1个子部件")),
-              Chip(
-                  avatar: CircleAvatar(
-                    backgroundColor: Colors.blue,
-                    child: Text("B"),
-                  ),
-                  label: Text("第2个子部件")),
-              Chip(
-                  avatar: CircleAvatar(
-                    backgroundColor: Colors.blue,
-                    child: Text("C"),
-                  ),
-                  label: Text("第3个子部件")),
-              Chip(
-                  avatar: CircleAvatar(
-                    backgroundColor: Colors.blue,
-                    child: Text("D"),
-                  ),
-                  label: Text("第4个子部件"))
+              Container(
+                color: Colors.greenAccent,
+                child: Text("container，没有指定位置，水平垂直居中对齐，stack内的元素都可以叠加"),
+              ),
+              Positioned(
+                left: 18.0, //水平不居中，垂直居中
+                child: Text(
+                  "left，距离stack左边18.0",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      backgroundColor: Colors.red,
+                      color: Colors.blue),
+                ),
+              ),
+              Positioned(
+                top: 200, //水平居中，垂直不居中
+                child: Text(
+                  "top，距离stack顶部200",
+                ),
+              )
             ],
           ),
         ),
